@@ -10,46 +10,22 @@ Import_2 <- read_excel("Import_2.xlsx", col_types = c("text",
 ```
 
 ```{r}
-library(treemapify)
-library(extrafont)
-library(ggplot2)
+library(treemap)
 ```
 
 
 ```{r}
-treemap_coords <- treemapify(Import_2,
-                             area="Value",
-                             fill="Country",
-                             label = "Value",
-                             group = "Region")
-
-print(treemap_coords)
-
-ggplot2::ggplot(Import_2, ggplot2:: aes(area=Value,
-                           fill=Country,
-                           label=Value,
-                           group=Region)) + 
-  geom_treemap()+
-  geom_treemap_text()+
-  ggtitle("Table X: Visitors to Aruba according to source market")+
-  theme_gray(base_family = "Candara")+
-  theme(plot.title = element_text(face="bold", 
-                                  size=26, 
-                                  hjust=0))
+p <- treemap(Import_2,
+            index=c("Region","Country"),
+            vSize="Value",
+            type="index",
+            palette = "Set2",
+            bg.labels=c("white"),
+            align.labels=list(
+              c("center", "center"), 
+              c("right", "bottom")
+            )  
+          )  
 ```
 
-```{r}
-# plot
-treeMapCoordinates <- treemapify(Import_2,
-                                 area = "Value",
-                                 fill = "Region",
-                                 label = "Country",
-                                 group = "Region")
 
-treeMapPlot <- ggplotify(treeMapCoordinates) + 
-                  scale_x_continuous(expand = c(0, 0)) +
-                  scale_y_continuous(expand = c(0, 0)) +
-                  scale_fill_brewer(palette = "Dark2")
-
-print(treeMapPlot)
-```
