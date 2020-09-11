@@ -1,0 +1,25 @@
+library(quantmod)
+library(dygraphs)
+library(Quandl)
+
+getSymbols('PFOODINDEXM',src='FRED')
+global.price.food<- PFOODINDEXM
+rm(PFOODINDEXM)
+
+dygraph(global.price.food, main="Global Price of Food index",
+        ylab="Index")%>% 
+  dyRangeSelector()
+
+# Consumer Price Index for All Urban Consumers: 
+# Food at Home in U.S. City Average (CUSR0000SAF11)
+getSymbols('CUSR0000SAF11',src='FRED')
+food.us<- CUSR0000SAF11
+rm(CUSR0000SAF11)
+
+dygraph(food.us, main="Food at home U.S. Urban consumers",
+        ylab="Index")%>% 
+  dyRangeSelector()
+
+
+lungDeaths <- cbind(ldeaths, mdeaths, fdeaths)
+dygraph(lungDeaths, main = "Deaths from Lung Disease (UK)") 
